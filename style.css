@@ -1022,13 +1022,4 @@ code {
   }
 }
 
-/* Animation for section entry */
-.guide-section {
-  opacity: 0;
-  transform: translateY(16px);
-  transition: opacity 600ms ease, transform 600ms ease;
-}
-.guide-section.visible {
-  opacity: 1;
-  transform: translateY(0);
-}
+/* Section entry — no fade animation (was causing scroll hang on mobile) */

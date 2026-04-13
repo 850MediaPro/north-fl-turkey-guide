@@ -192,22 +192,7 @@ const WAYPOINTS = [{"lat":30.099099,"lon":-84.914533,"name":"[BORDER-132]","scor
 })();
 
 // ============================================================
-// SCROLL ANIMATIONS
-// ============================================================
-(function () {
-  const sections = document.querySelectorAll('.guide-section');
-  const observer = new IntersectionObserver(
-    (entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('visible');
-        }
-      });
-    },
-    { threshold: 0.05, rootMargin: '0px 0px -50px 0px' }
-  );
-  sections.forEach((s) => observer.observe(s));
-})();
+// SCROLL ANIMATIONS — removed (was causing scroll hang on mobile)
 
 // ============================================================
 // BACK TO TOP
