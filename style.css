@@ -282,10 +282,14 @@ nav {
 
 /* Hero */
 .hero {
-  padding: clamp(var(--space-12), 8vw, var(--space-24)) var(--space-6);
+  padding: clamp(var(--space-8), 8vw, var(--space-24)) var(--space-4);
   text-align: center;
   background: var(--color-surface);
   border-bottom: 1px solid var(--color-divider);
+}
+
+@media (min-width: 768px) {
+  .hero { padding-left: var(--space-6); padding-right: var(--space-6); }
 }
 
 .hero-inner {
@@ -483,10 +487,16 @@ h4 {
 
 .land-card .details-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
   gap: var(--space-3);
   margin: var(--space-4) 0;
   font-size: var(--text-sm);
+}
+
+@media (max-width: 480px) {
+  .land-card .details-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
 }
 
 .detail-item {
@@ -569,16 +579,22 @@ h4 {
 /* Stats bar */
 .stats-bar {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-  gap: var(--space-4);
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--space-3);
   margin: var(--space-6) 0;
+}
+
+@media (max-width: 480px) {
+  .stats-bar {
+    grid-template-columns: repeat(2, 1fr);
+  }
 }
 
 .stat-card {
   background: var(--color-surface);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-lg);
-  padding: var(--space-4) var(--space-5);
+  padding: var(--space-3) var(--space-3);
   text-align: center;
 }
 
@@ -700,13 +716,14 @@ h4 {
   background: var(--color-surface-2);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-md);
-  padding: var(--space-4) var(--space-5);
+  padding: var(--space-3) var(--space-4);
   font-family: 'SF Mono', 'Fira Code', monospace;
-  font-size: var(--text-sm);
+  font-size: var(--text-xs);
   overflow-x: auto;
   line-height: 1.8;
   margin: var(--space-4) 0;
-  white-space: pre;
+  white-space: pre-wrap;
+  word-break: break-word;
 }
 
 /* Permits table */
@@ -815,7 +832,14 @@ h4 {
   gap: var(--space-8);
   max-width: var(--content-wide);
   margin: 0 auto;
-  padding: 0 var(--space-6);
+  padding: 0 var(--space-4);
+  overflow-x: hidden;
+}
+
+@media (min-width: 768px) {
+  .page-layout {
+    padding: 0 var(--space-6);
+  }
 }
 
 .toc-sidebar {

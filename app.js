@@ -161,7 +161,11 @@ const WAYPOINTS = [{"lat":30.099099,"lon":-84.914533,"name":"[BORDER-132]","scor
   // Fit map to all waypoints so nothing is off-screen on any device
   if (allMarkers.length > 0) {
     const bounds = L.latLngBounds(allMarkers.map((m) => m.getLatLng()));
-    map.fitBounds(bounds, { padding: [30, 30] });
+    // Delay to let the map container render its final size (especially on mobile)
+    setTimeout(function () {
+      map.invalidateSize();
+      map.fitBounds(bounds, { padding: [20, 20], maxZoom: 10 });
+    }, 300);
   }
 
   // Filter buttons
