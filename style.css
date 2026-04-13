@@ -363,6 +363,8 @@ nav {
 .section-header .section-desc {
   color: var(--color-text-muted);
   font-size: var(--text-base);
+  max-width: 100%;
+  overflow-wrap: break-word;
 }
 
 h3 {
@@ -387,6 +389,9 @@ h4 {
   margin-bottom: var(--space-4);
   color: var(--color-text);
   line-height: 1.7;
+  max-width: 100%;
+  overflow-wrap: break-word;
+  word-break: break-word;
 }
 
 .guide-section ul, .guide-section ol {
@@ -398,6 +403,8 @@ h4 {
   margin-bottom: var(--space-2);
   line-height: 1.6;
   color: var(--color-text);
+  max-width: 100%;
+  overflow-wrap: break-word;
 }
 
 .guide-section strong {
@@ -409,8 +416,13 @@ h4 {
   background: var(--color-surface);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-lg);
-  padding: var(--space-5) var(--space-6);
+  padding: var(--space-4);
   margin: var(--space-6) 0;
+  overflow: hidden;
+}
+
+@media (min-width: 768px) {
+  .callout { padding: var(--space-5) var(--space-6); }
 }
 
 .callout-warning {
@@ -440,8 +452,13 @@ h4 {
   background: var(--color-surface);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-lg);
-  padding: var(--space-6);
+  padding: var(--space-4);
   transition: box-shadow var(--transition-interactive);
+  overflow: hidden;
+}
+
+@media (min-width: 768px) {
+  .land-card { padding: var(--space-6); }
 }
 
 .land-card:hover {
@@ -516,6 +533,8 @@ h4 {
 .detail-value {
   color: var(--color-text);
   font-weight: 500;
+  overflow-wrap: break-word;
+  word-break: break-word;
 }
 
 /* Map section */
@@ -541,13 +560,15 @@ h4 {
   flex-wrap: wrap;
   gap: var(--space-2);
   margin-bottom: var(--space-4);
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
 }
 
 .filter-btn {
   display: inline-flex;
   align-items: center;
   gap: var(--space-2);
-  padding: var(--space-2) var(--space-4);
+  padding: var(--space-2) var(--space-3);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-full);
   font-size: var(--text-sm);
@@ -556,6 +577,12 @@ h4 {
   background: var(--color-surface);
   cursor: pointer;
   transition: all var(--transition-interactive);
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+@media (min-width: 768px) {
+  .filter-btn { padding: var(--space-2) var(--space-4); }
 }
 
 .filter-btn:hover {
@@ -664,7 +691,11 @@ h4 {
   background: var(--color-surface);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-lg);
-  padding: var(--space-6);
+  padding: var(--space-4);
+}
+
+@media (min-width: 768px) {
+  .cat-card { padding: var(--space-6); }
 }
 
 .cat-card-header {
@@ -697,8 +728,12 @@ h4 {
   background: var(--color-surface);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-lg);
-  padding: var(--space-5) var(--space-6);
+  padding: var(--space-4);
   margin-bottom: var(--space-4);
+}
+
+@media (min-width: 768px) {
+  .scenario-card { padding: var(--space-5) var(--space-6); }
 }
 
 .scenario-card h4 {
@@ -836,6 +871,11 @@ h4 {
   overflow-x: hidden;
 }
 
+.page-content {
+  min-width: 0;
+  max-width: 100%;
+}
+
 @media (min-width: 768px) {
   .page-layout {
     padding: 0 var(--space-6);
@@ -944,6 +984,43 @@ h4 {
 }
 .popup-detail .label { color: var(--color-text-muted); }
 .popup-detail .value { font-weight: 600; text-align: right; }
+
+/* Inline code */
+code {
+  font-size: 0.875em;
+  background: var(--color-surface-2);
+  padding: 0.15em 0.4em;
+  border-radius: var(--radius-sm);
+  word-break: break-all;
+}
+
+/* Global mobile overflow safety */
+@media (max-width: 767px) {
+  .guide-section,
+  .map-section {
+    word-break: break-word;
+  }
+  
+  .guide-section ul,
+  .guide-section ol {
+    padding-left: var(--space-5);
+  }
+
+  .cat-card-header {
+    flex-wrap: wrap;
+  }
+  
+  .cat-count {
+    margin-left: 0;
+    width: 100%;
+    font-size: var(--text-xs);
+  }
+
+  .land-card-header {
+    flex-direction: column;
+    gap: var(--space-2);
+  }
+}
 
 /* Animation for section entry */
 .guide-section {
