@@ -158,6 +158,12 @@ const WAYPOINTS = [{"lat":30.099099,"lon":-84.914533,"name":"[BORDER-132]","scor
   // Add all cluster groups to map
   Object.values(clusterGroups).forEach((g) => map.addLayer(g));
 
+  // Fit map to all waypoints so nothing is off-screen on any device
+  if (allMarkers.length > 0) {
+    const bounds = L.latLngBounds(allMarkers.map((m) => m.getLatLng()));
+    map.fitBounds(bounds, { padding: [30, 30] });
+  }
+
   // Filter buttons
   let activeFilter = 'all';
 
