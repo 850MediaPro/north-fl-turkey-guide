@@ -1,0 +1,702 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>North Florida Turkey Hunting Guide</title>
+  <meta name="description" content="A data-driven field manual for public land turkey hunting in the Big Bend &amp; Panhandle. 297 research-scored waypoints across 9 counties.">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet.markercluster@1.5.3/dist/MarkerCluster.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet.markercluster@1.5.3/dist/MarkerCluster.Default.css">
+  <link rel="stylesheet" href="./base.css">
+  <link rel="stylesheet" href="./style.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🦃</text></svg>">
+</head>
+<body>
+
+  <!-- Header -->
+  <header class="site-header">
+    <div class="header-inner">
+      <a href="#" class="site-logo">
+        <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M16 2L4 12v14a2 2 0 002 2h6v-8a2 2 0 012-2h4a2 2 0 012 2v8h6a2 2 0 002-2V12L16 2z" fill="none" stroke="currentColor" stroke-width="2"/>
+          <path d="M10 8l6-4 6 4" fill="none" stroke="currentColor" stroke-width="1.5" opacity="0.5"/>
+          <circle cx="16" cy="15" r="2" fill="currentColor"/>
+          <path d="M12 6c2-2 6-2 8 0" stroke="currentColor" stroke-width="1" fill="none" opacity="0.4"/>
+        </svg>
+        <span>Turkey Scout</span>
+      </a>
+      <nav>
+        <a href="#map">Map</a>
+        <a href="#landscape">Landscape</a>
+        <a href="#public-lands">Lands</a>
+        <a href="#scoring">Scoring</a>
+        <a href="#categories">Categories</a>
+        <a href="#behavior">Behavior</a>
+        <a href="#cheat-sheet">Cheat Sheet</a>
+      </nav>
+      <div class="header-actions">
+        <button class="theme-toggle" data-theme-toggle aria-label="Toggle dark mode">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+        </button>
+        <button class="mobile-nav-btn" onclick="document.querySelector('.mobile-nav').classList.add('open')" aria-label="Open menu">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12h18M3 6h18M3 18h18"/></svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Mobile nav -->
+  <div class="mobile-nav">
+    <button class="close-btn" onclick="this.parentElement.classList.remove('open')" aria-label="Close menu">&times;</button>
+    <a href="#map" onclick="this.parentElement.classList.remove('open')">Map</a>
+    <a href="#landscape" onclick="this.parentElement.classList.remove('open')">Landscape</a>
+    <a href="#public-lands" onclick="this.parentElement.classList.remove('open')">Public Lands</a>
+    <a href="#scoring" onclick="this.parentElement.classList.remove('open')">Scoring</a>
+    <a href="#categories" onclick="this.parentElement.classList.remove('open')">Categories</a>
+    <a href="#behavior" onclick="this.parentElement.classList.remove('open')">Behavior</a>
+    <a href="#cheat-sheet" onclick="this.parentElement.classList.remove('open')">Cheat Sheet</a>
+  </div>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="hero-inner">
+      <h1>North Florida Turkey Hunting Guide</h1>
+      <p class="subtitle">A Data-Driven Field Manual for Public Land in the Big Bend &amp; Panhandle</p>
+      <div class="meta">
+        <div class="meta-item"><strong>297</strong> Waypoints</div>
+        <div class="meta-item"><strong>9</strong> Counties</div>
+        <div class="meta-item"><strong>6</strong> Public Lands</div>
+        <div class="meta-item">Generated April 12, 2026</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Main content layout -->
+  <div class="page-layout">
+    <aside class="toc-sidebar">
+      <h4>Contents</h4>
+      <a href="#map">Interactive Map</a>
+      <a href="#how-it-works">How This Guide Works</a>
+      <a href="#landscape">The Landscape</a>
+      <a href="#public-lands">Public Lands</a>
+      <a href="#scoring">Scoring Model</a>
+      <a href="#categories">Waypoint Categories</a>
+      <a href="#field-reading">Reading the GPX</a>
+      <a href="#behavior">Turkey Behavior</a>
+      <a href="#limitations">Data Limitations</a>
+      <a href="#cheat-sheet">Cheat Sheet</a>
+      <a href="#permits">Permits &amp; Licenses</a>
+      <a href="#contacts">Contacts</a>
+    </aside>
+
+    <div class="page-content">
+
+      <!-- Map Section -->
+      <section id="map" class="map-section guide-section">
+        <div class="section-header">
+          <h2>Interactive Waypoint Map</h2>
+          <p class="section-desc">All 297 research-scored waypoints. Click any marker for full scoring details.</p>
+        </div>
+        <div class="stats-bar">
+          <div class="stat-card">
+            <div class="stat-number">161</div>
+            <div class="stat-label">Strut Zones</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-number">114</div>
+            <div class="stat-label">Feed Areas</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-number">13</div>
+            <div class="stat-label">Border Points</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-number">9</div>
+            <div class="stat-label">Water Sites</div>
+          </div>
+        </div>
+        <div class="map-controls">
+          <button class="filter-btn active" data-filter="all">All</button>
+          <button class="filter-btn" data-filter="STRUT"><span class="dot" style="background:var(--color-cat-strut)"></span>Strut</button>
+          <button class="filter-btn" data-filter="FEED"><span class="dot" style="background:var(--color-cat-feed)"></span>Feed</button>
+          <button class="filter-btn" data-filter="BORDER"><span class="dot" style="background:var(--color-cat-border)"></span>Border</button>
+          <button class="filter-btn" data-filter="WATER"><span class="dot" style="background:var(--color-cat-water)"></span>Water</button>
+        </div>
+        <div class="map-container" id="mapContainer"></div>
+      </section>
+
+      <!-- How This Guide Works -->
+      <section id="how-it-works" class="guide-section">
+        <div class="section-header">
+          <h2>How This Guide Works</h2>
+        </div>
+        <p>This guide accompanies a GPX file containing 297 waypoints generated by a Python pipeline that pulled real geospatial data from OpenStreetMap and scored every point using peer-reviewed research on Eastern wild turkey habitat selection in southeastern longleaf pine ecosystems. Nothing in this file is a guess. Every waypoint derives from measured water proximity, verified timber density, confirmed habitat edge diversity, road distance, and land boundary data. Where the data was incomplete, the guide tells you so honestly.</p>
+        <p>The GPX imports directly into onX Hunt (GPX 1.1, 118KB, well under the 4MB/3000-waypoint limits). Each waypoint name is formatted as <code>[CATEGORY-SCORE]</code> &mdash; e.g., <code>[STRUT-128]</code> means a strutting zone candidate with a composite score of 128.</p>
+        <div class="callout callout-success">
+          <h4>What this guide is</h4>
+          <p>An educational companion that explains <em>why</em> each spot was chosen, <em>what</em> makes turkey habitat work in this specific ecosystem, and <em>how</em> to think about the data when you're standing in the woods at 5:30 AM.</p>
+        </div>
+        <div class="callout callout-warning">
+          <h4>What this guide is not</h4>
+          <p>Legal advice. A guarantee. A substitute for scouting. Regulations change every year. Always verify seasons, permits, and boundaries at <a href="https://myfwc.com" target="_blank" rel="noopener noreferrer">MyFWC.com</a> before you go.</p>
+        </div>
+      </section>
+
+      <!-- Part 1: Understanding the Landscape -->
+      <section id="landscape" class="guide-section">
+        <div class="section-header">
+          <h2>Understanding the Landscape</h2>
+          <p class="section-desc">The region at a glance &mdash; what makes this ecosystem unique for turkey hunting.</p>
+        </div>
+
+        <p>The study area covers roughly 1,800 square miles of north Florida from the Apalachicola River east to the Aucilla River, and from the Gulf coast north to the Georgia line. This is the southern terminus of the Appalachian Highlands' influence on Florida &mdash; the last place you'll find meaningful elevation changes before the state flattens into peninsula. The terrain is subtle: 2-3 meters of elevation advantage here separates a roost ridge from a feeding flat. Don't think mountains. Think micro-topography.</p>
+
+        <h3>Dominant Ecosystem</h3>
+        <p>Fire-maintained longleaf pine (<em>Pinus palustris</em>) with wiregrass (<em>Aristida stricta</em>) understory. This is what turkeys evolved in. The open understory gives them sight lines for predator detection. The wiregrass holds the insects they eat. The scattered hardwood drains along creeks give them roosting corridors with mature cypress and water oak canopy.</p>
+
+        <h3>The Karst Connection</h3>
+        <p>The Woodville Karst Plain &mdash; porous limestone riddled with sinkholes, springs, and underground rivers. This matters for hunting because:</p>
+        <ul>
+          <li>Springs and sinkholes are <em>permanent</em> water sources turkeys rely on year-round</li>
+          <li>Karst creates subtle elevation features (sinkhole rims, spring runs) that concentrate turkey activity</li>
+          <li>The aquifer connection means water features shown on maps actually exist and flow</li>
+        </ul>
+
+        <h3>Spring Season Climate (March 21 &ndash; April 26)</h3>
+        <ul>
+          <li>Morning temps: 55&ndash;68&deg;F. Afternoons: 78&ndash;88&deg;F.</li>
+          <li>Fog common near spring runs and river corridors until 8:00&ndash;9:00 AM</li>
+          <li>Thunderstorms build most afternoons by mid-April. Plan your hunts for morning.</li>
+          <li>48&ndash;72 hours after rain, gobbling activity and movement increase measurably</li>
+        </ul>
+      </section>
+
+      <!-- Part 2: Public Lands -->
+      <section id="public-lands" class="guide-section">
+        <div class="section-header">
+          <h2>The Public Lands</h2>
+          <p class="section-desc">Every public land unit represented in the waypoint data, what it's like on the ground, and exactly what you need to hunt it.</p>
+        </div>
+
+        <div class="land-cards">
+          <!-- Apalachicola NF -->
+          <div class="land-card">
+            <div class="land-card-header">
+              <h3>Apalachicola National Forest</h3>
+              <span class="badge badge-walkon">Walk-on</span>
+            </div>
+            <div class="details-grid">
+              <div class="detail-item"><span class="detail-label">Waypoints</span><span class="detail-value">47</span></div>
+              <div class="detail-item"><span class="detail-label">Size</span><span class="detail-value">635,019 acres</span></div>
+              <div class="detail-item"><span class="detail-label">Counties</span><span class="detail-value">Liberty, Wakulla, Leon, Franklin</span></div>
+              <div class="detail-item"><span class="detail-label">Season</span><span class="detail-value">Mar 21 &ndash; Apr 26, 2026</span></div>
+              <div class="detail-item"><span class="detail-label">Bag Limit</span><span class="detail-value">1/day, 2/season</span></div>
+              <div class="detail-item"><span class="detail-label">Hours</span><span class="detail-value">30 min before sunrise &ndash; sunset</span></div>
+            </div>
+            <p>The backbone of the study area. Over half a million acres of contiguous longleaf pine, cypress swamp, and hardwood drain. The forest runs an aggressive prescribed burn program &mdash; recently burned compartments (1-3 years post-fire) are turkey magnets.</p>
+            <h4>Key Terrain</h4>
+            <ul>
+              <li><strong>Wakulla District (south):</strong> Wet. Extensive cypress swamps, seepage slopes, sinkholes. The Sopchoppy River corridor has the best roosting habitat in the region.</li>
+              <li><strong>Liberty District (north):</strong> Drier uplands with more pronounced sandhills. Better visibility, more open strut zones along powerline cuts.</li>
+              <li><strong>Bradwell Bay Wilderness:</strong> 24,602 acres of roadless swamp. 7 of the top 13 waypoints cluster on its border (scored 119-132).</li>
+              <li><strong>Mud Swamp/New River Wilderness:</strong> The top-scoring waypoint in the entire dataset (<code>[BORDER-132]</code>) sits on its edge.</li>
+            </ul>
+            <div class="callout callout-warning">
+              <h4>Key access roads</h4>
+              <p>FR 13 (Sopchoppy area), SR 267 (Leon/Wakulla boundary), FR 314/365 (Bradwell Bay perimeter). Forest roads are unpaved and many are seasonal. Check the MVUM at the ranger station. Cell service is nonexistent in the interior &mdash; download your onX maps offline.</p>
+            </div>
+          </div>
+
+          <!-- Aucilla WMA -->
+          <div class="land-card">
+            <div class="land-card-header">
+              <h3>Aucilla WMA</h3>
+              <span class="badge badge-walkon">Walk-on</span>
+            </div>
+            <div class="details-grid">
+              <div class="detail-item"><span class="detail-label">Waypoints</span><span class="detail-value">54</span></div>
+              <div class="detail-item"><span class="detail-label">Size</span><span class="detail-value">50,471 acres</span></div>
+              <div class="detail-item"><span class="detail-label">Counties</span><span class="detail-value">Jefferson, Taylor</span></div>
+              <div class="detail-item"><span class="detail-label">Season</span><span class="detail-value">Mar 21 &ndash; Apr 26, 2026</span></div>
+              <div class="detail-item"><span class="detail-label">Extra Permit</span><span class="detail-value">Management Area ($26.50/yr)</span></div>
+              <div class="detail-item"><span class="detail-label">Camping</span><span class="detail-value">Allowed throughout</span></div>
+            </div>
+            <p>The sleeper pick. 50,000 acres with no quota requirement. The Aucilla River itself disappears underground through sinkholes and reemerges miles later &mdash; these points create unique micro-habitats turkeys key on. 11 of the top 60 waypoints are here.</p>
+            <div class="callout callout-info">
+              <h4>Pro tip</h4>
+              <p>The Aucilla Sinks area is fascinating terrain but difficult to navigate. Don't plan your first hunt there. The mosquitoes along the river corridor in April are biblical.</p>
+            </div>
+          </div>
+
+          <!-- Talquin WMA -->
+          <div class="land-card">
+            <div class="land-card-header">
+              <h3>Talquin WMA / Lake Talquin State Forest</h3>
+              <span class="badge badge-quota">Quota Required</span>
+            </div>
+            <div class="details-grid">
+              <div class="detail-item"><span class="detail-label">Waypoints</span><span class="detail-value">53</span></div>
+              <div class="detail-item"><span class="detail-label">Size</span><span class="detail-value">~3,000 huntable acres</span></div>
+              <div class="detail-item"><span class="detail-label">Counties</span><span class="detail-value">Leon, Liberty, Gadsden</span></div>
+              <div class="detail-item"><span class="detail-label">Season</span><span class="detail-value">Weekends only</span></div>
+              <div class="detail-item"><span class="detail-label">Permits</span><span class="detail-value">10 free/weekend</span></div>
+              <div class="detail-item"><span class="detail-label">Hours</span><span class="detail-value">30 min before sunrise &ndash; sunset</span></div>
+            </div>
+            <p>Some of the best habitat diversity scores in the dataset. The Ochlockonee River and Lake Talquin create long stretches of timber-water interface. 10 hunters per weekend means gobblers stay patternable throughout the season.</p>
+            <div class="callout callout-warning">
+              <h4>Weekends only</h4>
+              <p>If you show up on a Wednesday, you're trespassing during closed season. Apply early at <a href="https://gooutdoorsflorida.com" target="_blank" rel="noopener noreferrer">GoOutdoorsFlorida.com</a>. Four miles from Tallahassee means heavy recreational use &mdash; turkeys here are educated.</p>
+            </div>
+          </div>
+
+          <!-- St. Marks NWR -->
+          <div class="land-card">
+            <div class="land-card-header">
+              <h3>St. Marks NWR</h3>
+              <span class="badge badge-quota">Quota Required</span>
+            </div>
+            <div class="details-grid">
+              <div class="detail-item"><span class="detail-label">Waypoints</span><span class="detail-value">5</span></div>
+              <div class="detail-item"><span class="detail-label">Size</span><span class="detail-value">86,000+ acres</span></div>
+              <div class="detail-item"><span class="detail-label">Season</span><span class="detail-value">April 7-11, 2026 (4 days)</span></div>
+              <div class="detail-item"><span class="detail-label">Permits</span><span class="detail-value">75 permits ($5 app, $25 permit)</span></div>
+              <div class="detail-item"><span class="detail-label">Bag Limit</span><span class="detail-value">1 gobbler per hunt</span></div>
+              <div class="detail-item"><span class="detail-label">Youth Season</span><span class="detail-value">Mar 14-15, 2026</span></div>
+            </div>
+            <p>Premier coastal longleaf-to-salt marsh transition. 95 years of habitat stability. 75 permits, 4 days &mdash; if you draw a tag, you're hunting some of the best public-land turkey habitat in north Florida.</p>
+            <div class="callout callout-warning">
+              <h4>Critical boundary</h4>
+              <p>The refuge abuts Wakulla Springs State Park to the north. Wakulla Springs is NO HUNTING. The boundary is not always obvious in the field.</p>
+            </div>
+          </div>
+
+          <!-- Joe Budd WMA -->
+          <div class="land-card">
+            <div class="land-card-header">
+              <h3>Joe Budd WMA</h3>
+              <span class="badge badge-quota">Quota Required</span>
+            </div>
+            <div class="details-grid">
+              <div class="detail-item"><span class="detail-label">Waypoints</span><span class="detail-value">4</span></div>
+              <div class="detail-item"><span class="detail-label">Size</span><span class="detail-value">11,039 acres</span></div>
+              <div class="detail-item"><span class="detail-label">County</span><span class="detail-value">Gadsden</span></div>
+              <div class="detail-item"><span class="detail-label">Season</span><span class="detail-value">Weekends only</span></div>
+              <div class="detail-item"><span class="detail-label">Permits</span><span class="detail-value">20 free/weekend</span></div>
+              <div class="detail-item"><span class="detail-label">Hours</span><span class="detail-value">30 min before sunrise &ndash; 1:00 PM</span></div>
+            </div>
+            <p>The afternoon cutoff at 1 PM means turkeys get undisturbed afternoon feeding every day. By mid-season, birds here are less afternoon-shy than other lands.</p>
+            <div class="callout callout-warning">
+              <h4>Shooting hours end at 1:00 PM</h4>
+              <p>This is a critical difference from every other area. If you're used to hunting until dark, you'll get a citation here. Zone tags drawn at check station 2:00 PM Thursday before each hunt.</p>
+            </div>
+          </div>
+
+          <!-- Tate's Hell -->
+          <div class="land-card">
+            <div class="land-card-header">
+              <h3>Tate's Hell State Forest</h3>
+              <span class="badge badge-quota">Quota Required</span>
+            </div>
+            <div class="details-grid">
+              <div class="detail-item"><span class="detail-label">Waypoints</span><span class="detail-value">0 (outside scoring window)</span></div>
+              <div class="detail-item"><span class="detail-label">Size</span><span class="detail-value">~202,000 acres</span></div>
+              <div class="detail-item"><span class="detail-label">Counties</span><span class="detail-value">Franklin, Liberty</span></div>
+              <div class="detail-item"><span class="detail-label">Permits</span><span class="detail-value">205 for full season</span></div>
+              <div class="detail-item"><span class="detail-label">Season</span><span class="detail-value">Mar 21 &ndash; Apr 26, 2026 (daily)</span></div>
+            </div>
+            <p>Enormous and the most challenging terrain. The name isn't accidental. Most hunters never push past the first half-mile from a road. The interior longleaf islands and cypress stringers hold unpressured birds. 202,000 acres means one hunter per 1,000 acres. GPS is mandatory.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Part 3: Scoring Model -->
+      <section id="scoring" class="guide-section">
+        <div class="section-header">
+          <h2>How the Scoring Model Works</h2>
+          <p class="section-desc">Every waypoint score is a composite of six habitat factors weighted by peer-reviewed research on Eastern wild turkey habitat selection.</p>
+        </div>
+
+        <div class="score-table">
+          <table>
+            <thead>
+              <tr>
+                <th>Factor</th>
+                <th>Weight</th>
+                <th>What It Measures</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Habitat Edge Density</strong></td>
+                <td>25%</td>
+                <td>Distinct habitat types within 200m. Research shows 79% of hens select home ranges with 3-4 cover types.</td>
+              </tr>
+              <tr>
+                <td><strong>Water Proximity</strong></td>
+                <td>20%</td>
+                <td>Distance to nearest water. Peak at 150m. Springs and sinkholes get extra weight as reliable year-round sources.</td>
+              </tr>
+              <tr>
+                <td><strong>Elevation Advantage</strong></td>
+                <td>15%</td>
+                <td>Height above surrounding terrain. Currently scored with a neutral placeholder (40/100) &mdash; USGS queries not yet run.</td>
+              </tr>
+              <tr>
+                <td><strong>Cover Diversity</strong></td>
+                <td>15%</td>
+                <td>Distinct cover types within 300m including road/trail openings used as travel corridors.</td>
+              </tr>
+              <tr>
+                <td><strong>Mature Timber</strong></td>
+                <td>15%</td>
+                <td>Natural woodland scores up to 100. Managed plantation caps at 60. Named waterways add 20 points.</td>
+              </tr>
+              <tr>
+                <td><strong>Clearing Proximity</strong></td>
+                <td>10%</td>
+                <td>Distance to meadows, grasslands, powerline corridors. Must have adjacent timber for escape cover.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3>The Pressure Modifier</h3>
+        <p>Raw habitat score gets multiplied by a pressure modifier that separates "good habitat" from "good hunting."</p>
+
+        <h4>Road Distance Curve</h4>
+        <div class="code-block">0-100m from road:    0.50-0.58x  (every hunter walks here)
+200-400m:            0.72-0.92x  (still easy access)
+600-800m:            1.05-1.20x  (PEAK &mdash; far enough, close enough)
+1000-1500m:          1.18-0.98x  (diminishing returns)
+2000m+:              0.75-0.60x  (too far to hunt effectively)</div>
+
+        <h4>Bonus Multipliers</h4>
+        <ul>
+          <li><strong>Wilderness Border: 1.25x</strong> &mdash; Birds on huntable land adjacent to non-huntable wilderness. The wilderness acts as a refuge.</li>
+          <li><strong>Water Crossing: 1.15x</strong> &mdash; A creek or swamp between the road and the point. Most hunters won't cross it. You will.</li>
+          <li><strong>No Trail: 1.10x</strong> &mdash; No marked trail within 300m means no foot traffic beyond hunters.</li>
+        </ul>
+
+        <div class="callout callout-info">
+          <h4>Example: Why [BORDER-132] is the top waypoint</h4>
+          <p>Base habitat score: ~70 (solid but not exceptional). Pressure modifier: 1.88x &mdash; Road distance 782m (1.20x) &times; Mud Swamp Wilderness border (1.25x) &times; Water crossing (1.15x) &times; No trail (1.10x). Final: 70 &times; 1.88 = 132. The habitat isn't the best. The <em>huntability</em> is.</p>
+        </div>
+
+        <h3>Land Verification</h3>
+        <p>165 waypoints are on verified or bbox-matched public land. 132 waypoints (44%) are UNVERIFIED &mdash; they received a 0.85x score penalty. <strong>Always verify on onX Hunt's land ownership layer before hunting any UNVERIFIED waypoint.</strong></p>
+      </section>
+
+      <!-- Part 4: Categories -->
+      <section id="categories" class="guide-section">
+        <div class="section-header">
+          <h2>Waypoint Categories</h2>
+          <p class="section-desc">Each waypoint is classified into a behavioral category that suggests how to hunt it.</p>
+        </div>
+
+        <div class="category-grid">
+          <div class="cat-card">
+            <div class="cat-card-header">
+              <span class="cat-dot" style="background:var(--color-cat-strut)"></span>
+              <h3>STRUT</h3>
+              <span class="cat-count">161 waypoints &bull; 54%</span>
+            </div>
+            <p>A clearing or right-of-way with adjacent mature timber where gobblers are likely to display. Clearing proximity &ge; 65 AND mature timber &ge; 45.</p>
+            <h4>How to hunt</h4>
+            <ul>
+              <li>Set up 50-80 yards inside the timber, facing the clearing</li>
+              <li>Gobblers enter clearings from timber at dawn and mid-morning (10:00-11:00 AM)</li>
+              <li>Call sparingly &mdash; in open areas, turkeys can pinpoint your location</li>
+              <li>Powerline corridors: set up where the powerline crosses a creek or changes direction</li>
+            </ul>
+          </div>
+
+          <div class="cat-card">
+            <div class="cat-card-header">
+              <span class="cat-dot" style="background:var(--color-cat-feed)"></span>
+              <h3>FEED</h3>
+              <span class="cat-count">114 waypoints &bull; 38%</span>
+            </div>
+            <p>Diverse habitat edge where turkeys forage throughout the day. High edge density and cover diversity &mdash; the 3-4 cover type locations research identifies as the strongest predictor of turkey presence.</p>
+            <h4>How to hunt</h4>
+            <ul>
+              <li>All-day spots &mdash; turkeys move through unpredictably</li>
+              <li>Set up at the transition between two habitat types</li>
+              <li>Mid-morning (9:30-11:00 AM) is prime &mdash; gobblers cruise edges looking for hens</li>
+              <li>Run-and-gun: call, wait 20 minutes, move to the next one</li>
+            </ul>
+          </div>
+
+          <div class="cat-card">
+            <div class="cat-card-header">
+              <span class="cat-dot" style="background:var(--color-cat-border)"></span>
+              <h3>BORDER</h3>
+              <span class="cat-count">13 waypoints &bull; 4%</span>
+            </div>
+            <p>Huntable land within 200m of a non-huntable protected area. The highest-scoring category overall &mdash; 7 of the top 10 waypoints are BORDER.</p>
+            <h4>How to hunt</h4>
+            <ul>
+              <li>Pre-dawn setup is critical &mdash; 45 minutes before first light</li>
+              <li>Set up 50-100m inside the huntable zone, facing the boundary</li>
+              <li>Don't call aggressively toward the wilderness</li>
+              <li>One-chance events &mdash; if you spook the bird, it retreats to the safe zone</li>
+            </ul>
+          </div>
+
+          <div class="cat-card">
+            <div class="cat-card-header">
+              <span class="cat-dot" style="background:var(--color-cat-water)"></span>
+              <h3>WATER</h3>
+              <span class="cat-count">9 waypoints &bull; 3%</span>
+            </div>
+            <p>Springs, sinkholes, or named creek confluences with adjacent timber. Data-confirmed features that won't move. During dry spells, every turkey within 2 miles visits these daily.</p>
+            <h4>How to hunt</h4>
+            <ul>
+              <li>Turkeys visit mid-morning (9:00-11:00 AM) and late afternoon (3:00-5:00 PM)</li>
+              <li>Set up 60-80m from water, not on top of it</li>
+              <li>Sinkholes often have elevated rims &mdash; set up on the rim</li>
+              <li>Springs are thermal refugia during hot afternoons</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="callout callout-info" style="margin-top:var(--space-8)">
+          <h4>ROOST &amp; LISTEN (Locked)</h4>
+          <p>These categories require measured USGS elevation data to distinguish ridges from flats. Run the script without <code>--skip-elevation</code> to unlock. ROOST sites are the highest-percentage turkey hunting tactic &mdash; if you know where a gobbler roosts, you know where he'll be at 6:15 AM tomorrow.</p>
+        </div>
+      </section>
+
+      <!-- Reading the GPX -->
+      <section id="field-reading" class="guide-section">
+        <div class="section-header">
+          <h2>Reading the GPX in the Field</h2>
+          <p class="section-desc">What each number means when you're looking at a waypoint in onX.</p>
+        </div>
+
+        <div class="code-block">Score: 128 (base &times; 1.51 pressure mod)
+Water: 99.7 (148m)
+Edge density: 92.2
+Elevation adv: 40        &larr; "40" means unmeasured placeholder
+Cover diversity: 99.7
+Clearing: 96.5
+Timber: 73.4
+Road dist: 835m
+Land: Apalachicola National Forest
+Permit: No quota permit required. Walk-on access.
+County: Liberty</div>
+
+        <h3>Quick Field Reads</h3>
+        <ul>
+          <li><strong>Score &gt; 110:</strong> Top-tier. Plan a hunt around this spot.</li>
+          <li><strong>Score 95-110:</strong> Strong. Hunt it if convenient to your route.</li>
+          <li><strong>Score 88-95:</strong> Solid backup or midday wandering points.</li>
+          <li><strong>Pressure mod &gt; 1.30:</strong> Hard to reach. That's the point.</li>
+          <li><strong>Pressure mod &lt; 1.00:</strong> Easy access = high pressure. Hunt early season only.</li>
+          <li><strong>Water: 99+:</strong> Sweet spot. Close enough to attract turkeys, far enough to set up between them and the water.</li>
+          <li><strong>Timber: 90+:</strong> Mature natural woodland. Listen for roosted gobblers.</li>
+          <li><strong>Clearing: 90+:</strong> Adjacent to a confirmed opening. Face it.</li>
+          <li><strong>Elevation adv: 40:</strong> Placeholder. Don't trust elevation-dependent conclusions.</li>
+          <li><strong>Land: [UNVERIFIED]:</strong> Check on onX before hunting.</li>
+        </ul>
+
+        <h3>Planning a Hunt Day</h3>
+        <ol>
+          <li><strong>Pick your land unit</strong> based on quota permits, day of week, and drive distance.</li>
+          <li><strong>Filter waypoints</strong> by county/land in onX.</li>
+          <li><strong>Pick a STRUT or BORDER waypoint</strong> for pre-dawn. Arrive 45 min before sunrise.</li>
+          <li><strong>Pick 2-3 FEED waypoints</strong> within 1 mile as mid-morning fallbacks.</li>
+          <li><strong>Pick a WATER waypoint</strong> for midday setup.</li>
+          <li><strong>Check road distances.</strong> 1200m = 25-minute walk in the dark. Add 50% for swamp.</li>
+        </ol>
+      </section>
+
+      <!-- Part 5: Behavior -->
+      <section id="behavior" class="guide-section">
+        <div class="section-header">
+          <h2>Turkey Behavior in This Ecosystem</h2>
+          <p class="section-desc">What makes North Florida Eastern wild turkeys tick &mdash; and how they respond to pressure.</p>
+        </div>
+
+        <h3>Roosting</h3>
+        <ul>
+          <li>Tall longleaf pine (60+ feet), slash pine, and pond cypress in wetland margins</li>
+          <li>Trees that emerge above the surrounding canopy for 360-degree predator scan</li>
+          <li>Typically 0.3-1.0 miles from permanent water</li>
+          <li>Individual gobblers maintain 4-8 traditional roost trees and rotate among them</li>
+        </ul>
+
+        <h3>Morning Routine</h3>
+        <ul>
+          <li>Flydown: 30-90 minutes after dawn (up to 120 min under pressure by Week 2)</li>
+          <li>Move 0.3-0.8 miles to primary feeding areas</li>
+          <li>First hour focused on insects in wiregrass, especially in recently burned areas</li>
+          <li>Gobble rate peaks during dawn chorus: 2-6 gobbles per minute</li>
+          <li>Under pressure: gobbling drops 40-70% within 24 hours of season opening</li>
+        </ul>
+
+        <h3>Strutting</h3>
+        <ul>
+          <li>Open understory with wiregrass &lt;18 inches tall, 30-60% canopy coverage</li>
+          <li>Primary display: 5:30-7:30 AM. Secondary: 3:30-5:00 PM.</li>
+          <li>Mid-day strutting declines sharply in heat (&gt;80&deg;F) or post-rain</li>
+          <li>Multiple gobblers may use the same traditional display areas within 0.25 miles</li>
+        </ul>
+
+        <h3>Response to Pressure</h3>
+        <div class="callout callout-warning">
+          <p><strong>This is the most important section.</strong> By the second weekend, every turkey within 200m of a road has been called at, shot at, or spooked. The birds that survive are the ones using harder-to-reach habitat.</p>
+        </div>
+        <div class="pressure-table">
+          <table>
+            <thead>
+              <tr><th>Timeframe</th><th>What Changes</th></tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Days 1-5</strong></td>
+                <td>Gobbling drops 40-70%. Roost exit delays 60-120 min. Strut zone abandonment 60-80%. Response distance to calls increases to 100-200 yards.</td>
+              </tr>
+              <tr>
+                <td><strong>Week 2-4</strong></td>
+                <td>Activity shifts to mid-day (10 AM - 2 PM). Roosting in denser/more isolated timber. Random movement patterns replace traditional routes.</td>
+              </tr>
+              <tr>
+                <td><strong>Late Season</strong></td>
+                <td>Dominant gobbler harvest permits subordinate males (age 1) to gobble. Yearling gobbles are higher-frequency, irregular. Remaining birds are patternable again.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3>Weather &amp; Timing</h3>
+        <p><strong>Best conditions:</strong> 48-72 hours after rain. Warming trend after cold front (activity resumes within 8-12 hours). Falling barometric pressure. Fog &mdash; birds stay on roost longer, giving you more time to set up.</p>
+        <p><strong>Worst conditions:</strong> Sustained cold (&lt;45&deg;F). High wind. Active rain &mdash; but they move immediately after it stops.</p>
+      </section>
+
+      <!-- Limitations -->
+      <section id="limitations" class="guide-section">
+        <div class="section-header">
+          <h2>What the Data Doesn't Know</h2>
+          <p class="section-desc">Honest limitations of this guide.</p>
+        </div>
+        <ol>
+          <li><strong>No elevation data yet (affects 30% of the scoring model).</strong> The elevation advantage factor uses a neutral placeholder of 40/100. Running the USGS queries will reshuffle rankings.</li>
+          <li><strong>132 waypoints (44%) have unverified land status.</strong> Always verify on onX Hunt's land ownership layer.</li>
+          <li><strong>OSM data quality varies.</strong> Apalachicola NF is well-mapped. Aucilla WMA has sparser coverage.</li>
+          <li><strong>No prescribed burn data.</strong> The single most useful dataset for turkey hunting in longleaf ecosystems isn't available in OSM. Call the ranger station.</li>
+          <li><strong>No real-time turkey population data.</strong> The model predicts good habitat, not where turkeys currently are. Scouting is still required.</li>
+          <li><strong>Regulations change annually.</strong> Check <a href="https://myfwc.com" target="_blank" rel="noopener noreferrer">MyFWC.com</a> before every hunt.</li>
+        </ol>
+      </section>
+
+      <!-- Cheat Sheet -->
+      <section id="cheat-sheet" class="guide-section">
+        <div class="section-header">
+          <h2>The Cheat Sheet</h2>
+          <p class="section-desc">Quick reference by scenario.</p>
+        </div>
+
+        <div class="scenario-card">
+          <h4>"I have no quota permits and want to hunt tomorrow"</h4>
+          <p>Apalachicola National Forest or Aucilla WMA. Both walk-on, no quota, daily access. Focus on STRUT and FEED waypoints in Liberty County (ANF) or Jefferson County (Aucilla). Bring license, turkey permit, and management area permit.</p>
+        </div>
+
+        <div class="scenario-card">
+          <h4>"I drew a St. Marks tag"</h4>
+          <p>4 days (April 7-11). Pre-scout the Panacea or Wakulla Unit. Focus on the 5 WATER/BORDER waypoints plus the boundary between the refuge and Wakulla Springs State Park.</p>
+        </div>
+
+        <div class="scenario-card">
+          <h4>"I drew a Talquin/Wakulla/Joe Budd weekend tag"</h4>
+          <p>Weekends only. Talquin: creek/lake edges and powerline corridors. Joe Budd: shooting hours end at 1 PM. Wakulla: sinkholes and McBride Slough corridor.</p>
+        </div>
+
+        <div class="scenario-card">
+          <h4>"It's Week 3 and I haven't heard a gobble"</h4>
+          <p>Stop hunting easy-access STRUT points. Pivot to BORDER waypoints (wilderness edges) and high-pressure-modifier FEED points. Cross a creek. Walk past the 800m mark. Hunt mid-morning (10-11 AM) instead of dawn.</p>
+        </div>
+
+        <div class="scenario-card">
+          <h4>"I want the highest-probability spot in the dataset"</h4>
+          <p><code>[BORDER-132]</code> at 30.099&deg;N, -84.915&deg;W on the Mud Swamp/New River Wilderness border. Apalachicola NF, Liberty County. No quota. Walk-on. Bring waders &mdash; you're crossing water, 782m from the nearest road.</p>
+        </div>
+
+        <div class="scenario-card">
+          <h4>"I only have time for one scouting trip"</h4>
+          <p>Drive FR 314/365 along the Bradwell Bay Wilderness perimeter. Stop at the BORDER waypoints. Owl-call at dusk &mdash; if a gobbler shock-gobbles, you've confirmed a roost. Mark it. Come back opening morning.</p>
+        </div>
+      </section>
+
+      <!-- Permits -->
+      <section id="permits" class="guide-section">
+        <div class="section-header">
+          <h2>Licenses &amp; Permits</h2>
+        </div>
+        <div class="permit-table">
+          <table>
+            <thead>
+              <tr><th>Item</th><th>Cost</th><th>Where</th><th>Notes</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>FL Resident Hunting License</td><td>$17/year</td><td><a href="https://gooutdoorsflorida.com" target="_blank" rel="noopener noreferrer">GoOutdoorsFlorida.com</a></td><td></td></tr>
+              <tr><td>FL Nonresident Annual License</td><td>~$152/year</td><td><a href="https://gooutdoorsflorida.com" target="_blank" rel="noopener noreferrer">GoOutdoorsFlorida.com</a></td><td>10-day license NOT valid for spring turkey</td></tr>
+              <tr><td>Turkey Permit</td><td>$5/season</td><td><a href="https://gooutdoorsflorida.com" target="_blank" rel="noopener noreferrer">GoOutdoorsFlorida.com</a></td><td>Valid across all areas</td></tr>
+              <tr><td>Management Area Permit</td><td>$26.50/year</td><td><a href="https://gooutdoorsflorida.com" target="_blank" rel="noopener noreferrer">GoOutdoorsFlorida.com</a></td><td>Required for all WMAs/state forests</td></tr>
+              <tr><td>WMA Quota Permit</td><td>Free</td><td><a href="https://gooutdoorsflorida.com" target="_blank" rel="noopener noreferrer">GoOutdoorsFlorida.com</a></td><td>Talquin, Wakulla, Joe Budd, Tate's Hell</td></tr>
+              <tr><td>St. Marks NWR Permit</td><td>$5 app + $25</td><td><a href="https://gooutdoorsflorida.com" target="_blank" rel="noopener noreferrer">GoOutdoorsFlorida.com</a></td><td>No exemptions. Phase I for preference points.</td></tr>
+              <tr><td>Apalachicola NF</td><td>&mdash;</td><td>&mdash;</td><td>Walk-on with license + turkey permit</td></tr>
+              <tr><td>Aucilla WMA</td><td>&mdash;</td><td>&mdash;</td><td>Walk-on with license + turkey + MA permit</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- Contacts -->
+      <section id="contacts" class="guide-section">
+        <div class="section-header">
+          <h2>Key Contacts &amp; Resources</h2>
+        </div>
+        <div class="permit-table">
+          <table>
+            <thead>
+              <tr><th>Resource</th><th>Contact</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>FWC Law Enforcement</td><td>888-404-FWCC (3922)</td></tr>
+              <tr><td>Apalachicola NF &mdash; Wakulla Ranger District</td><td>850-926-3561</td></tr>
+              <tr><td>Apalachicola NF &mdash; Bristol Ranger District</td><td>850-643-2282</td></tr>
+              <tr><td>St. Marks NWR Visitor Center</td><td>850-925-6121</td></tr>
+              <tr><td>FWC Regional Office (NW Region)</td><td>850-265-3676</td></tr>
+              <tr><td>Licenses &amp; Harvest Reporting</td><td><a href="https://gooutdoorsflorida.com" target="_blank" rel="noopener noreferrer">GoOutdoorsFlorida.com</a></td></tr>
+              <tr><td>Current Regulations</td><td><a href="https://myfwc.com/hunting" target="_blank" rel="noopener noreferrer">MyFWC.com/hunting</a></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+    </div><!-- .page-content -->
+  </div><!-- .page-layout -->
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <p>Generated from 286,000 candidate points across a 1,800 sq mi study area using OpenStreetMap geospatial data. Scoring based on published research on Eastern wild turkey habitat selection in southeastern longleaf pine ecosystems.</p>
+      <p>All regulatory info sourced from FWC and USFWS publications &mdash; verify current status before hunting.</p>
+      <div class="footer-links">
+        <a href="https://myfwc.com" target="_blank" rel="noopener noreferrer">MyFWC.com</a>
+        <a href="https://gooutdoorsflorida.com" target="_blank" rel="noopener noreferrer">GoOutdoorsFlorida.com</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Back to top -->
+  <button class="back-to-top" id="backToTop" aria-label="Back to top">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 15l-6-6-6 6"/></svg>
+  </button>
+
+  <!-- Scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/leaflet.markercluster@1.5.3/dist/leaflet.markercluster.js"></script>
+  <script src="./app.js"></script>
+</body>
+</html>
